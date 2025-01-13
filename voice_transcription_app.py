@@ -38,15 +38,14 @@ transcription_text = st.empty()  # Placeholder for transcription output
 # Function to handle starting the recording
 def start_recording():
     st.session_state.recording = True  # Set recording state
-    st.write("Recording...")
+    with st.spinner("Recording..."):  # Show spinner while recording
+        # Record audio for a maximum of 5 seconds
+        st.session_state.audio_data = sd.rec(
+            int(SAMPLERATE * 5), samplerate=SAMPLERATE, channels=CHANNELS
+        )
 
-    # Record audio for a maximum of 5 seconds
-    st.session_state.audio_data = sd.rec(
-        int(SAMPLERATE * 5), samplerate=SAMPLERATE, channels=CHANNELS
-    )
-
-    # Wait for the recording to finish
-    sd.wait()  # Wait for recording to finish
+        # Wait for the recording to finish
+        sd.wait()  # Wait for recording to finish
 
 
 # Function to handle stopping the recording
