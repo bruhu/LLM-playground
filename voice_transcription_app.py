@@ -27,24 +27,21 @@ def transcribe_audio(indata):
 st.title("Voice Transcription App")
 st.write("Record your voice, and the app will transcribe it using Whisper.")
 
-# Audio recording button
-record_button = st.button("Start Recording")
+record_button = st.button("Start Recording")  # record button
 
-# Display transcription
-transcription_text = st.empty()
+transcription_text = st.empty()  # display transcription
 
 if record_button:
     with st.spinner("Recording..."):
-        # Record for 5 seconds (You can change this)
         audio_data = sd.rec(
-            int(SAMPLERATE * 5), samplerate=SAMPLERATE, channels=CHANNELS
+            int(SAMPLERATE * 5),
+            samplerate=SAMPLERATE,
+            channels=CHANNELS,  # record for 5 seconds
         )
-        sd.wait()  # Wait for recording to finish
+        sd.wait()  # wait for recording to finish
 
-        # Transcribe the audio
-        transcription = transcribe_audio(audio_data)
+        transcription = transcribe_audio(audio_data)  # transcribe audio
 
-        # Display transcription
         transcription_text.write(f"**Transcription:** {transcription}")
 
-        time.sleep(1)  # Pause for smooth UI transition
+        time.sleep(1)  # pause for ui transition
